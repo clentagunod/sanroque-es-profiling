@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>try{if(localStorage.getItem("lps_theme")==="dark")document.documentElement.classList.add("dark-mode-preload")}catch(error){}</script>
+<title>Reading Profile - San Roque ES Realtime Enrollment Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="icon" type="image/png" href="../assets/favicon.png" />
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebarMount"></div>
+  <div class="main-area">
+    <div id="topbarMount"></div>
+    <main class="page">
+      <div class="page-header">
+        <div><h1>Reading Profile</h1><p class="desc">CRLA and Phil-IRI reading progress across the school year</p></div>
+        <button class="btn btn-primary" id="exportReadingBtn" style="width:auto;">Export Excel</button>
+      </div>
+      <div id="yearSwitcherMount"></div>
+      <div class="toolbar profile-filters">
+        <div class="search-box"><input id="readingSearch" type="search" placeholder="Search learner or LRN..." /></div>
+        <select class="select-filter" id="readingPeriodFilter"><option value="">All Assessment Periods</option><option value="bosy">BOSY</option><option value="mosy">MOSY</option><option value="eosy">EOSY</option></select>
+        <select class="select-filter" id="readingSexFilter"><option value="">All Sex</option><option>Male</option><option>Female</option></select>
+        <select class="select-filter" id="readingStatusFilter"><option value="">All Reading Classifications</option><option>Grade Ready</option><option>Transitioning</option><option>Developing</option><option>High Emerging</option><option>Low Emerging</option></select>
+      </div>
+      <div class="stat-pill-row" id="readingSummary"></div>
+      <section class="panel">
+        <div class="panel-header"><h3>BOSY, MOSY, and EOSY Reading Profile</h3></div>
+        <div style="overflow-x:auto;"><table class="data-table reading-profile-table" style="min-width:950px;"><thead><tr><th>Name</th><th>Grade</th><th>Gender</th><th>BOSY<br><small>Reference / Level</small></th><th>MOSY<br><small>Reference / Level</small></th><th>EOSY<br><small>Reference / Level</small></th><th>Change</th></tr></thead><tbody id="readingTableBody"><tr><td colspan="7" class="state-row">Loading reading profiles...</td></tr></tbody></table></div>
+      </section>
+      <div class="pagination"><span id="readingPageInfo">-</span><div class="pager-btns" id="readingPagerBtns"></div></div>
+    </main>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="../js/app-config.js"></script><script src="../js/firebase-config.js"></script><script src="../js/auth.js"></script><script src="../js/icons.js"></script><script src="../js/shell.js"></script><script src="../js/demo-data.js"></script><script src="../js/cache.js"></script><script src="../js/sheets-api.js"></script><script src="../js/firestore-api.js"></script><script src="../js/school-year.js"></script><script src="../js/reading-profile.js"></script>
+</body>
+</html>

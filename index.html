@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>San Roque Elementary School — Realtime Enrollment Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="icon" type="image/png" href="assets/favicon.png" onerror="this.remove()" />
+</head>
+<body>
+
+<div class="login-shell">
+
+  <!-- Left brand panel -->
+  <section class="login-visual">
+    <div class="login-brand">
+      <div class="login-brand-mark">
+        <img src="assets/school-logo.png" alt="" width="32" height="32" style="border-radius:50%;object-fit:cover;" onerror="this.style.display='none'; document.getElementById('brandFallbackIcon').style.display='block';" />
+        <svg id="brandFallbackIcon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#10254a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
+        </svg>
+      </div>
+      <div class="login-brand-text">
+        <div class="eyebrow">Department of Education</div>
+        <div class="name">San Roque Elementary School</div>
+      </div>
+    </div>
+
+    <div class="login-headline">
+      <h1>Realtime Enrollment Dashboard</h1>
+      <p>Track learner profiles and program tagging in one place, powered by your school's secure live database.</p>
+    </div>
+
+    <div class="login-stats">
+      <div><strong id="loginLearnerCount">—</strong><span>Enrolled learners</span></div>
+      <div><strong id="loginProgramCount">—</strong><span>Programs tracked</span></div>
+      <div><strong id="loginSyncStatus">Checking…</strong><span>Data status</span></div>
+    </div>
+  </section>
+
+  <!-- Right login panel -->
+  <section class="login-panel">
+    <div class="login-card">
+      <h2>Welcome back</h2>
+      <span class="sub">Sign in with your school-issued account to continue.</span>
+
+      <div class="form-alert" id="loginAlert" role="alert"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">School email</label>
+          <input type="email" id="email" name="email" autocomplete="username" placeholder="juan.delacruz@sanroquees.edu.ph" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Enter your password" required />
+        </div>
+        <div class="field-row">
+          <label><input type="checkbox" id="rememberMe" /> Remember me</label>
+          <a href="#" id="forgotPasswordLink">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginSubmit">Sign in</button>
+      </form>
+
+      <div class="login-divider" aria-hidden="true"><span>or continue with limited access</span></div>
+      <button type="button" class="visitor-login" id="visitorLoginBtn">
+        <span class="visitor-login-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="3.25"/><path d="M5.5 20c.7-3.5 2.9-5.25 6.5-5.25s5.8 1.75 6.5 5.25"/>
+          </svg>
+        </span>
+        <span class="visitor-login-copy">
+          <strong>Continue as Visitor</strong>
+          <small>View the dashboard and enrollment summary</small>
+        </span>
+        <svg class="visitor-login-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6"/>
+        </svg>
+      </button>
+
+      <p class="login-footnote">Visitors can view the Dashboard and Enrollment Summary only.<br>Staff access is limited to authorized school accounts.</p>
+      
+    </div>
+    <footer class="site-footer">
+      <p>© 2026 San Roque Elementary School · Courtesy of <a href="https://github.com/clentagunod" target="_blank" rel="noopener noreferrer">ClentIndustries</a></p>
+    </footer>
+  </section>
+
+  
+
+</div>
+
+<!-- Firebase SDK (compat build — no bundler/build step required) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+<script src="js/app-config.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/cache.js"></script>
+<script src="js/sheets-api.js"></script>
+<script src="js/firestore-api.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  initLoginPage();
+
+  document.getElementById("visitorLoginBtn").addEventListener("click", () => {
+    sessionStorage.setItem("lps_guest_session", "1");
+    localStorage.setItem("lps_guest_session", String(Date.now() + 30 * 60 * 1000));
+    sessionStorage.setItem("lps_user_profile", JSON.stringify({ email: "", uid: "guest", role: "Visitor" }));
+    window.location.href = "pages/dashboard.html?visitor=1";
+  });
+
+  document.getElementById("forgotPasswordLink").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const alertBox = document.getElementById("loginAlert");
+    if (!email) {
+      alertBox.textContent = "Enter your email above first, then click \"Forgot password?\" again.";
+      alertBox.classList.add("is-visible");
+      return;
+    }
+    try {
+      await auth.sendPasswordResetEmail(email);
+      alertBox.style.background = "var(--success-100)";
+      alertBox.style.color = "var(--success-600)";
+      alertBox.textContent = "Password reset link sent. Please check your email inbox.";
+      alertBox.classList.add("is-visible");
+    } catch (err) {
+      alertBox.style.background = "var(--danger-100)";
+      alertBox.style.color = "var(--danger-600)";
+      alertBox.textContent = "We couldn't send a reset link for that email.";
+      alertBox.classList.add("is-visible");
+    }
+  });
+</script>
+
+</body>
+</html>

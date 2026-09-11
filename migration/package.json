@@ -1,0 +1,14 @@
+{
+  "name": "san-roque-es-firestore-migration",
+  "private": true,
+  "version": "1.0.0",
+  "description": "One-time migration of San Roque ES Google Sheets data into Firestore.",
+  "main": "migrate-to-firestore.js",
+  "scripts": {
+    "migrate": "node migrate-to-firestore.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "xlsx": "^0.18.5"
+  }
+}

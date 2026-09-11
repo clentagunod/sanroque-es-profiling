@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>try{if(localStorage.getItem("lps_theme")==="dark")document.documentElement.classList.add("dark-mode-preload")}catch(error){}</script>
+<title>Grade Calculator — San Roque ES Realtime Enrollment Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="icon" type="image/png" href="../assets/favicon.png" />
+</head>
+<body>
+<div class="app-shell"><div id="sidebarMount"></div><div class="main-area"><div id="topbarMount"></div><main class="page" data-utility-page="grade">
+  <div class="page-header"><div><h1>Grade Calculator</h1><p class="desc">Calculate the arithmetic average of subject grades</p></div></div>
+  <section class="panel utility-card">
+    <div class="panel-header"><div><span class="eyebrow">Academic tool</span><h3>Subject Grades</h3></div></div>
+    <div class="panel-body">
+      <p class="utility-description">Empty subjects are excluded from the average. Enter grades from 60 to 100.</p>
+      <div class="utility-subject-grid" id="utilitySubjectGrid"></div>
+      <div class="utility-actions"><button class="btn btn-primary" id="calculateGradeBtn" type="button">Calculate average</button><button class="btn btn-secondary" id="resetGradeBtn" type="button">Clear</button></div>
+      <div class="utility-result" id="gradeResult" aria-live="polite"><span>Average</span><strong>—</strong><small>Enter at least one grade from 60 to 100.</small></div>
+    </div>
+  </section>
+</main></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script><script src="../js/app-config.js"></script>
+<script src="../js/firebase-config.js"></script><script src="../js/auth.js"></script><script src="../js/icons.js"></script><script src="../js/shell.js"></script><script src="../js/utilities.js"></script>
+</body></html>
+

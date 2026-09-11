@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>try{if(localStorage.getItem("lps_theme")==="dark")document.documentElement.classList.add("dark-mode-preload")}catch(error){}</script>
+<title>Audit Log — San Roque ES Realtime Enrollment Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="icon" type="image/png" href="../assets/favicon.png" />
+<style>
+.audit-table { min-width: 1120px; }
+.audit-table td { vertical-align: top; }
+.audit-value { max-width: 210px; white-space: normal; overflow-wrap: anywhere; color: var(--ink-700); }
+.audit-action { display: inline-flex; padding: 4px 7px; border-radius: 5px; background: var(--blue-100); color: var(--blue-700); font-size: 11px; font-weight: 800; letter-spacing: .04em; }
+.audit-action[data-action="DELETE"] { background: var(--danger-100); color: var(--danger-600); }
+.audit-action[data-action="CREATE"] { background: var(--success-100); color: var(--success-600); }
+.audit-action[data-action="UPDATE"] { background: var(--warning-100); color: var(--warning-600); }
+.audit-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.audit-meta { color: var(--ink-500); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebarMount"></div>
+  <div class="main-area">
+    <div id="topbarMount"></div>
+    <main class="page">
+      <div class="page-header">
+        <div>
+          <h1>Audit Log</h1>
+          <p class="desc">A read-only history of activity recorded in the AuditLog sheet</p>
+        </div>
+        <button class="btn btn-secondary" id="auditRefreshBtn" type="button">Refresh log</button>
+      </div>
+
+      <section class="panel">
+        <div class="panel-body">
+          <div class="audit-toolbar">
+            <div class="search-box">
+              <input type="search" id="auditSearch" placeholder="Search user, action, sheet, or record…" aria-label="Search audit log" />
+            </div>
+            <span class="audit-meta" id="auditMeta">Loading audit entries…</span>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table audit-table">
+            <thead>
+              <tr><th>Timestamp</th><th>User</th><th>Action</th><th>Sheet</th><th>Record / ID</th><th>Old Value</th><th>New Value</th><th>IP / Session</th></tr>
+            </thead>
+            <tbody id="auditTableBody"><tr><td colspan="8" class="state-row">Loading audit entries…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="../js/app-config.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/demo-data.js"></script>
+<script src="../js/cache.js"></script>
+<script src="../js/sheets-api.js"></script>
+<script src="../js/firestore-api.js"></script>
+<script src="../js/audit-log.js"></script>
+</body>
+</html>

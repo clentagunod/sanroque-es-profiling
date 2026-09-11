@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>try{if(localStorage.getItem("lps_theme")==="dark")document.documentElement.classList.add("dark-mode-preload")}catch(error){}</script>
+<title>EduAI — San Roque ES Realtime Enrollment Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="icon" type="image/png" href="../assets/favicon.png" />
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebarMount"></div>
+  <div class="main-area">
+    <div id="topbarMount"></div>
+    <main class="page eduai-page">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow eduai-eyebrow">A smarter learning workspace</span>
+          <h1>EduAI</h1>
+          <p class="desc">Thoughtful AI-powered tools for planning, teaching, and supporting every learner.</p>
+        </div>
+      </div>
+      <section class="eduai-layout">
+        <div class="eduai-intro panel">
+          <div class="eduai-icon" aria-hidden="true">✦</div>
+          <span class="eduai-status">Coming Soon</span>
+          <h2>More clarity for the work that matters.</h2>
+          <p>EduAI is being designed to help school teams turn everyday information into useful next steps, with care for context and the people behind the data.</p>
+          <div class="eduai-points">
+            <div><span>01</span><strong>Practical</strong><small>Built around real school workflows.</small></div>
+            <div><span>02</span><strong>Responsible</strong><small>Designed with people and privacy in mind.</small></div>
+          </div>
+        </div>
+        <section class="panel eduai-preview-panel">
+          <div class="panel-header">
+            <div><span class="eyebrow">In development</span><h3>Something useful is taking shape</h3></div>
+          </div>
+          <div class="eduai-preview-body">
+            <div class="eduai-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+            <div class="eduai-preview-copy">
+              <h2>Ready when your school is.</h2>
+              <p>We are refining the experience so it feels fast, clear, and genuinely helpful from the first click.</p>
+              <div class="eduai-progress"><span><i></i></span><strong>Preparing the next chapter</strong></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="../js/app-config.js"></script>
+<script src="../js/firebase-config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/icons.js"></script>
+<script src="../js/shell.js"></script>
+<script src="../js/cache.js"></script>
+<script src="../js/sheets-api.js"></script>
+<script src="../js/firestore-api.js"></script>
+<script>requireAuth().then(() => renderShell("eduai", "EduAI"));</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+SETUP_GUIDE.md
+# Firestore migration secrets — never commit these
+migration/serviceAccountKey.json
+migration/*.xlsx
